@@ -86,7 +86,7 @@
         justify-content: center;
         /* background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=80")
           center/cover no-repeat; */
-        background: transparent;
+        background: rgba(0,0,0,0.001);
         backdrop-filter: none;
         overflow: hidden;
       }
@@ -230,7 +230,7 @@
         color: #ffd700;
         border: 1px solid rgba(255, 215, 0, 0.4);
       }
-      
+
       .badges:empty,
       .donation-info:empty {
         display: none;
@@ -584,10 +584,10 @@
           }
 
           // Auto-hide after showtime
-            if (messageTimeout) clearTimeout(messageTimeout);
-            messageTimeout = setTimeout(() => {
-              hideMessage();
-            }, showtime);
+          // if (messageTimeout) clearTimeout(messageTimeout);
+          // messageTimeout = setTimeout(() => {
+          //   hideMessage();
+          // }, showtime);
         });
       }
 
@@ -613,7 +613,6 @@
         }
       }
 
-      
       createIframe();
     </script>
   </body>
