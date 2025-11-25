@@ -59,13 +59,8 @@
         }
       }
 
-      @supports (font: -apple-system-body) {
-        .content {
-          font: -apple-system-title1;
-        }
-        .info {
-          font: -apple-system-body;
-        }
+      #output {
+        min-height: 100px;
       }
 
       * {
@@ -77,16 +72,14 @@
       body {
         font-family: "Poppins", sans-serif;
         -webkit-font-smoothing: antialiased;
-        background: transparent;
-        overflow: hidden;
         width: 100vw;
-        height: 100vh;  
+        height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         /* background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=80")
           center/cover no-repeat; */
-        background: rgba(0,0,0,0.001);
+        background: transparent;
         backdrop-filter: none;
         overflow: hidden;
       }
@@ -109,8 +102,8 @@
       }
 
       .style-glass .message-wrapper {
-        backdrop-filter: blur(65px) brightness(1.1) saturate(1.3) url(#liquid-filter);
-        -webkit-backdrop-filter: blur(65px) brightness(1.1) saturate(1.3) url(#liquid-filter);
+        backdrop-filter: blur(65px) brightness(1.1) saturate(1.3);
+        -webkit-backdrop-filter: blur(65px) brightness(1.1) saturate(1.3);
         border-radius: 22px;
         border: 1px solid rgba(255, 255, 255, 0.18);
       }
@@ -273,17 +266,17 @@
         <feImage
           id="img"
           href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAADJCAYAAABi8a0GAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAGw5SURBVHhe7b1dr25Jkh4UkWvt01XdU9UeMzMCGwT2tC1hT4+5RiCuMBYCwY8BAY"
-          preseveAspectRatio="none"
+          preserveAspectRatio="none"
         />
-        <!-- <feTurbulence
+        <feTurbulence
           id="turb"
           baseFrequency="0.012"
           numOctaves="1"
           seed="5"
           type="fractalNoise"
           result="noise"
-        /> -->
-        <!-- move the noise for animation -->
+        />
+        move the noise for animation
         <feDisplacementMap
           id="disp"
           in="SourceGraphic"
