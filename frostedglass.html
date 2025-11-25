@@ -5,13 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Featured Message - Modern Styles</title>
     <link rel="icon" href="./assets/icons/favicon.ico" />
-    <!-- <link rel="preload" href="./thirdparty/NotoColorEmoji.ttf" as="font" type="font/ttf"> -->
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap"
       rel="stylesheet"
     />
 
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
+      :root {
+        --apple-heading: 600;
+        --apple-body: 400;
+      }
+
       @font-face {
         font-family: NotoColorEmojiLimited;
         unicode-range: U+1F1E6-1F1FF;
@@ -50,6 +59,15 @@
         }
       }
 
+      @supports (font: -apple-system-body) {
+        .content {
+          font: -apple-system-title1;
+        }
+        .info {
+          font: -apple-system-body;
+        }
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -57,97 +75,52 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          "Helvetica Neue", Arial, sans-serif, "NotoColorEmojiLimited";
+        font-family: "Poppins", sans-serif;
+        -webkit-font-smoothing: antialiased;
         background: transparent;
         overflow: hidden;
         width: 100vw;
-        height: 100vh;
+        height: 100vh;  
         display: flex;
         align-items: center;
         justify-content: center;
-        background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=80")
-          center/cover no-repeat;
+        /* background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=80")
+          center/cover no-repeat; */
+        background: rgba(0,0,0,0.001);
         backdrop-filter: none;
         overflow: hidden;
       }
 
-      #container {
-        width: 100%;
-        /* max-width: 800px;
-        padding: 20px;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: min(90vw, 480px);
-        max-height: 70vh;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        padding: 24px;
-        overflow-y: auto;
-        scrollbar-width: none; Firefox */
+      .content {
+        font-weight: var(--apple-heading);
+        font-size: 21px;
+        letter-spacing: -0.015em;
       }
 
-      /* Glass style animations - Smooth fade and blur */
+      .info {
+        font-weight: var(--apple-body);
+        font-size: 17px;
+        letter-spacing: -0.01em;
+        line-height: 1.4;
+      }
+
+      #container {
+        width: 100%;
+      }
+
       .style-glass .message-wrapper {
-        opacity: 0;
-        transform: translateY(10px);
-        backdrop-filter: blur(0px) saturate(100%);
-        -webkit-backdrop-filter: blur(0px) saturate(100%);
-        transition: opacity 0.45s ease, transform 0.45s ease,
-          backdrop-filter 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-          -webkit-backdrop-filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(65px) brightness(1.1) saturate(1.3) url(#liquid-filter);
+        -webkit-backdrop-filter: blur(65px) brightness(1.1) saturate(1.3) url(#liquid-filter);
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
       }
 
       .style-glass .message-wrapper.show {
         filter: blur(0);
         opacity: 1;
         transform: translateY(0px);
-        /* backdrop-filter: blur(1px) saturate(120%); */
-        /* -webkit-backdrop-filter: blur(1px) saturate(120%); */
+        margin: 0 20%;
       }
-
-      /* Glass styling */
-      /* .style-glass .message-wrapper.show {
-        background: rgba(255, 255, 255, 0.12);
-        border-radius: 22px;
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
-          inset 0 0 0 0.5px rgba(255, 255, 255, 0.25);
-      } */
-
-      .style-glass .message-wrapper.show::before {
-        content: "";
-        position: absolute;
-        inset: 50px;
-        pointer-events: none;
-        background: radial-gradient(
-          circle at 100% 100%,
-          rgba(255, 255, 255, 0.2) 0%,
-          rgba(255, 255, 255, 0.02) 45%,
-          transparent 70%
-        );
-        filter: blur(35px) saturate(130%);
-        opacity: 0.35;
-        mix-blend-mode: screen;
-        animation: liquid-shift 12s ease-in-out infinite alternate;
-        transition: opacity 0.8s ease;
-      }
-
-      /* .style-glass .message-wrapper.show::after {
-        content: "";
-        position: absolute;
-        inset: -6%;
-        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADklEQVR4nGP4z8AAAAMBAQDFnEkZAAAAAElFTkSuQmCC");
-        background-size: 250%;
-        mix-blend-mode: overlay;
-        opacity: 1%;
-        filter: blur(18px) contrast(160%);
-        animation: distort2 10s ease-in-out infinite reverse;
-        pointer-events: none;
-      } */
 
       .style-glass .message-wrapper.hide {
         opacity: 0;
@@ -155,149 +128,12 @@
         filter: blur(10px);
       }
 
-      /* Neon style animations - Electric slide in */
-      @keyframes neonGlitch {
-        0%,
-        100% {
-          transform: translateX(0);
-          opacity: 1;
-        }
-        20% {
-          transform: translateX(-2px);
-          opacity: 1;
-        }
-        40% {
-          transform: translateX(2px);
-          opacity: 1;
-        }
-        60% {
-          transform: translateX(-1px);
-          opacity: 1;
-        }
-      }
-
-      .style-neon .message-wrapper {
-        opacity: 0;
-        transform: translateX(-100vw);
-        transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      }
-
-      .style-neon .message-wrapper.show {
-        opacity: 1;
-        transform: translateX(0);
-        animation: neonGlitch 0.3s ease-out 0.8s forwards;
-      }
-
-      .style-neon .message-wrapper.hide {
-        opacity: 0;
-        transform: translateX(100vw);
-      }
-
-      /* Minimal style animations - Subtle slide up */
-      .style-minimal .message-wrapper {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-
-      .style-minimal .message-wrapper.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .style-minimal .message-wrapper.hide {
-        opacity: 0;
-        transform: translateY(-30px) scale(0.95);
-      }
-
-      /* Gaming style animations - Matrix-like assembly */
-      @keyframes matrixAssemble {
-        0% {
-          opacity: 0;
-          transform: perspective(1000px) rotateY(90deg) translateZ(300px);
-          filter: brightness(2) contrast(2);
-        }
-        50% {
-          opacity: 0.5;
-          transform: perspective(1000px) rotateY(45deg) translateZ(150px);
-          filter: brightness(1.5) contrast(1.5);
-        }
-        100% {
-          opacity: 1;
-          transform: perspective(1000px) rotateY(0) translateZ(0);
-          filter: brightness(1) contrast(1);
-        }
-      }
-
-      @keyframes matrixDisassemble {
-        0% {
-          opacity: 1;
-          transform: perspective(1000px) rotateY(0) translateZ(0) scale(1);
-        }
-        100% {
-          opacity: 0;
-          transform: perspective(1000px) rotateY(-90deg) translateZ(300px)
-            scale(0.5);
-          filter: brightness(0) hue-rotate(180deg);
-        }
-      }
-
-      .style-gaming .message-wrapper {
-        opacity: 0;
-        transform-style: preserve-3d;
-      }
-
-      .style-gaming .message-wrapper.show {
-        animation: matrixAssemble 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)
-          forwards;
-      }
-
-      .style-gaming .message-wrapper.hide {
-        animation: matrixDisassemble 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045)
-          forwards;
-      }
-
-      /* Twitch style animations - Bounce and slide */
-      @keyframes twitchBounce {
-        0% {
-          opacity: 0;
-          transform: translateX(-50px) scale(0.8);
-        }
-        60% {
-          opacity: 1;
-          transform: translateX(10px) scale(1.05);
-        }
-        80% {
-          opacity: 1;
-          transform: translateX(-5px) scale(0.98);
-        }
-        100% {
-          opacity: 1;
-          transform: translateX(0) scale(1);
-        }
-      }
-
-      .style-twitch .message-wrapper {
-        opacity: 0;
-      }
-
-      .style-twitch .message-wrapper.show {
-        animation: twitchBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-          forwards;
-      }
-
-      .style-twitch .message-wrapper.hide {
-        animation: twitchBounce 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-          reverse forwards;
-      }
-
-      /* Base message structure */
       .message {
         display: flex;
         align-items: flex-start;
-        gap: 14px;
+        gap: 30px;
         position: relative;
-        padding: 0; /* remove bubble padding here */
+        padding: 0;
       }
 
       .avatar {
@@ -308,37 +144,13 @@
         flex-shrink: 0;
       }
 
-      .message-content {
-        /* background: rgba(255, 255, 255, 0.15); Glass fit */
-        padding: 18px 22px;
-        border-radius: 18px;
-        position: relative;
-        /* max-width: 75%; */
-      }
-
-      .style-glass .message-content {
-        backdrop-filter: blur(10px) saturate(120%);
-        -webkit-backdrop-filter: blur(10px) saturate(120%);
-        border: 1px solid rgba(255, 255, 255, 0.22);
-      }
-
       .message-content::after {
-        content: "";
-        position: absolute;
-        left: -10px; /* ↔ Move tail horizontally */
-        top: 8px; /* ↕ Adjust tail vertical position */
-        width: 0;
-        height: 0;
-        border-width: 10px 10px 10px 0;
-        border-style: solid;
-        border-color: transparent rgba(255, 255, 255, 0.15) transparent
-          transparent;
-        filter: blur(0.5px);
+        display: none;
       }
 
       .username {
-        font-weight: 700;
-        font-size: 18px;
+        font-weight: 500;
+        font-size: 25px;
         display: flex;
         align-items: center;
         gap: 8px;
@@ -356,11 +168,10 @@
         word-wrap: break-word;
       }
 
-      /* Inline images/SVGs in chat messages */
       .text img,
       .text svg {
         max-width: 200px;
-        max-height: 2em; /* Relative to text size */
+        max-height: 2em;
         height: auto;
         width: auto;
         vertical-align: middle;
@@ -369,7 +180,6 @@
         display: inline-block;
       }
 
-      /* Emote-specific sizing */
       .text img.emote,
       .text svg.emote,
       .text img[class*="emote"],
@@ -388,13 +198,10 @@
         height: 18px;
       }
 
-      /* Style 1: Glassmorphism */
       .style-glass .message {
         position: relative;
         overflow: hidden;
-        padding: 24px 28px;
-        /* max-width: 90%; */
-        /* width: fit-content; */
+        padding: 28px 28px;
       }
 
       .style-glass .username {
@@ -407,133 +214,6 @@
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
       }
 
-      /* Style 2: Neon Glow */
-      .style-neon .message {
-        background: #0a0a0a;
-        border-radius: 16px;
-        border: 2px solid;
-        border-image: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff) 1;
-        position: relative;
-      }
-
-      .style-neon .message::before {
-        content: "";
-        position: absolute;
-        inset: -2px;
-        border-radius: 16px;
-        padding: 2px;
-        background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
-        -webkit-mask: linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        opacity: 0.6;
-        filter: blur(8px);
-      }
-
-      .style-neon .username {
-        color: #fff;
-        text-shadow: 0 0 10px currentColor;
-      }
-
-      .style-neon .text {
-        color: #e0e0e0;
-      }
-
-      /* Style 3: Minimal Clean */
-      .style-minimal .message {
-        background: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-      }
-
-      .style-minimal .username {
-        color: #333;
-      }
-
-      .style-minimal .text {
-        color: #666;
-      }
-
-      /* Style 4: Gaming RGB */
-      .style-gaming .message {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        border-radius: 0;
-        position: relative;
-        padding: 24px;
-        clip-path: polygon(
-          0 0,
-          calc(100% - 20px) 0,
-          100% 20px,
-          100% 100%,
-          20px 100%,
-          0 calc(100% - 20px)
-        );
-      }
-
-      .style-gaming .message::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          90deg,
-          #f72585,
-          #7209b7,
-          #3a0ca3,
-          #4361ee,
-          #4cc9f0
-        );
-        background-size: 200% 100%;
-        animation: rgb-shift 3s ease-in-out infinite;
-        clip-path: polygon(
-          0 0,
-          calc(100% - 20px) 0,
-          100% 20px,
-          100% 100%,
-          20px 100%,
-          0 calc(100% - 20px)
-        );
-        opacity: 0.8;
-        z-index: -1;
-      }
-
-      @keyframes rgb-shift {
-        0%,
-        100% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-      }
-
-      .style-gaming .username {
-        color: #fff;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-
-      .style-gaming .text {
-        color: #e0e0e0;
-      }
-
-      /* Style 5: Twitch-like */
-      .style-twitch .message {
-        background: #18181b;
-        border-radius: 4px;
-        border-left: 4px solid #9146ff;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-      }
-
-      .style-twitch .username {
-        color: #9146ff;
-      }
-
-      .style-twitch .text {
-        color: #efeff1;
-      }
-
-      /* Donation/Membership styling */
       .donation-info {
         display: inline-flex;
         align-items: center;
@@ -551,39 +231,15 @@
         border: 1px solid rgba(255, 215, 0, 0.4);
       }
 
-      .style-neon .donation-info {
-        background: linear-gradient(45deg, #ff006e, #8338ec);
-        color: #fff;
-      }
-
-      .style-minimal .donation-info {
-        background: #f0f0f0;
-        color: #333;
-      }
-
-      .style-gaming .donation-info {
-        background: #4cc9f0;
-        color: #000;
-        text-transform: uppercase;
-      }
-
-      .style-twitch .donation-info {
-        background: #9146ff;
-        color: #fff;
-      }
-
-      /* Hide elements when empty */
       .badges:empty,
       .donation-info:empty {
         display: none;
       }
 
-      /* Ensure show state persists */
       .message-wrapper.show {
         opacity: 1 !important;
       }
 
-      /* Sticker/Image support */
       .content-image {
         max-width: 300px;
         max-height: 300px;
@@ -591,7 +247,6 @@
         border-radius: 8px;
       }
 
-      /* Responsive adjustments */
       @media (max-width: 600px) {
         .message {
           padding: 16px;
@@ -613,6 +268,33 @@
     </style>
   </head>
   <body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <filter id="liquid-filter" x="-50%" y="-50%" width="200%" height="200%">
+        <feImage
+          id="img"
+          href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAADJCAYAAABi8a0GAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAGw5SURBVHhe7b1dr25Jkh4UkWvt01XdU9UeMzMCGwT2tC1hT4+5RiCuMBYCwY8BAY"
+          preseveAspectRatio="none"
+        />
+        <!-- <feTurbulence
+          id="turb"
+          baseFrequency="0.012"
+          numOctaves="1"
+          seed="5"
+          type="fractalNoise"
+          result="noise"
+        /> -->
+        <!-- move the noise for animation -->
+        <feDisplacementMap
+          id="disp"
+          in="SourceGraphic"
+          scale="20"
+          xChannelSelector="R"
+          yChannelSelector="G"
+          result="displaced"
+        />
+        <feComposite in="displaced" in2="SourceGraphic" operator="in" />
+      </filter>
+    </svg>
     <div id="container">
       <div id="output"></div>
     </div>
@@ -635,16 +317,12 @@
       const showtime = parseInt(
         urlParams.get("showtime") || urlParams.get("timer") || "30000"
       );
-      const pseudodock = urlParams.has("autoshow"); // Enable pseudodock mode for dock compatibility
-
-      // Apply selected style
+      const pseudodock = urlParams.has("autoshow");
       document.body.className = `style-${style}`;
 
-      // State
       let messageTimeout = null;
       let currentMessage = null;
 
-      // Create VDO.Ninja iframe for receiving messages
       function createIframe() {
         var iframe = document.createElement("iframe");
 
@@ -672,7 +350,7 @@
         iframe.style.left = "-100px";
         iframe.style.top = "-100px";
         iframe.id = "frame1";
-        iframe.allow = "midi;geolocation;microphone;"; // microphone is needed for Safari webRTC P2P connections
+        // iframe.allow = "midi;geolocation;microphone;"; // microphone is needed for Safari webRTC P2P connections
         document.body.appendChild(iframe);
 
         var eventMethod = window.addEventListener
@@ -777,8 +455,6 @@
           const fallback = "./assets/images/unknown.png";
           avatar.src = fallback;
           if (content.chatimg) {
-
-            // Smart lookup (checks all common field names)
             const url =
               content.chatimg ||
               content.chatImg ||
@@ -788,25 +464,18 @@
               content.profile?.image ||
               fallback;
 
-            console.log("Resolved Avatar URL:", url);
-
-            // Load
             avatar.src = url;
 
-            // Fallback if broken image URL
             avatar.onerror = () => {
               avatar.onerror = null;
               avatar.src = fallback;
             };
-
           }
           message.appendChild(avatar);
 
-          // Content wrapper
           const contentDiv = document.createElement("div");
           contentDiv.className = "message-content";
 
-          // Username and badges
           const header = document.createElement("div");
           header.className = "username";
 
@@ -915,10 +584,10 @@
           }
 
           // Auto-hide after showtime
-          //   if (messageTimeout) clearTimeout(messageTimeout);
-          //   messageTimeout = setTimeout(() => {
-          //     hideMessage();
-          //   }, showtime);
+          // if (messageTimeout) clearTimeout(messageTimeout);
+          // messageTimeout = setTimeout(() => {
+          //   hideMessage();
+          // }, showtime);
         });
       }
 
@@ -944,17 +613,6 @@
         }
       }
 
-      // Initialize TTS if requested
-      // if (urlParams.has('tts') && window.initTTS) {
-      //     window.initTTS({
-      //         lang: urlParams.get('tts') || urlParams.get('lang') || 'en-US',
-      //         pitch: parseFloat(urlParams.get('pitch') || '1'),
-      //         rate: parseFloat(urlParams.get('rate') || '1'),
-      //         voice: urlParams.get('voice') || null
-      //     });
-      // }
-
-      // Initialize iframe connection
       createIframe();
     </script>
   </body>

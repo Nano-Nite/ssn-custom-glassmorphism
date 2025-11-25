@@ -109,8 +109,8 @@
       }
 
       .style-glass .message-wrapper {
-        backdrop-filter: blur(1px) brightness(1.1) saturate(1.3) url(#liquid-filter);
-        -webkit-backdrop-filter: blur(1px) brightness(1.1) saturate(1.3) url(#liquid-filter);
+        backdrop-filter: blur(2px) brightness(1.1) saturate(1.3) url(#liquid-filter);
+        -webkit-backdrop-filter: blur(2px) brightness(1.1) saturate(1.3) url(#liquid-filter);
         border-radius: 22px;
         border: 1px solid rgba(255, 255, 255, 0.18);
       }
@@ -275,19 +275,19 @@
           href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAADJCAYAAABi8a0GAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAGw5SURBVHhe7b1dr25Jkh4UkWvt01XdU9UeMzMCGwT2tC1hT4+5RiCuMBYCwY8BAY"
           preseveAspectRatio="none"
         />
-        <feTurbulence
+        <!-- <feTurbulence
           id="turb"
           baseFrequency="0.012"
           numOctaves="1"
           seed="5"
           type="fractalNoise"
           result="noise"
-        />
+        /> -->
         <!-- move the noise for animation -->
         <feDisplacementMap
           id="disp"
           in="SourceGraphic"
-          scale="200"
+          scale="20"
           xChannelSelector="R"
           yChannelSelector="G"
           result="displaced"
