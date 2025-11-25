@@ -79,7 +79,7 @@
         justify-content: center;
         /* background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=80")
           center/cover no-repeat; */
-        background: rgba(0, 0, 0, 0.07);
+        background: transparent;
         backdrop-filter: none;
         overflow: hidden;
       }
@@ -261,22 +261,22 @@
     </style>
   </head>
   <body>
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
       <filter id="liquid-filter" x="-50%" y="-50%" width="200%" height="200%">
         <feImage
           id="img"
           href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAADJCAYAAABi8a0GAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAGw5SURBVHhe7b1dr25Jkh4UkWvt01XdU9UeMzMCGwT2tC1hT4+5RiCuMBYCwY8BAY"
           preserveAspectRatio="none"
         />
-        <!-- <feTurbulence
+        <feTurbulence
           id="turb"
           baseFrequency="0.012"
           numOctaves="1"
           seed="5"
           type="fractalNoise"
           result="noise"
-        /> -->
-        <!-- move the noise for animation -->
+        />
+        move the noise for animation
         <feDisplacementMap
           id="disp"
           in="SourceGraphic"
@@ -287,7 +287,7 @@
         />
         <feComposite in="displaced" in2="SourceGraphic" operator="in" />
       </filter>
-    </svg>
+    </svg> -->
     <div id="container">
       <div id="output"></div>
     </div>
