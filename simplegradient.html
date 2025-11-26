@@ -27,36 +27,11 @@
         src: local("Noto Color Emoji");
       }
 
-      @keyframes distort1 {
-        0% {
-          transform: translate(-10%, -8%) scale(1.05);
-        }
-        50% {
-          transform: translate(9%, 11%) scale(1);
-        }
-        100% {
-          transform: translate(-10%, -8%) scale(1.05);
-        }
-      }
-      @keyframes distort2 {
-        0% {
-          transform: translate(12%, -6%) scale(1.1);
-        }
-        50% {
-          transform: translate(-8%, 12%) scale(1.03);
-        }
-        100% {
-          transform: translate(12%, -6%) scale(1.1);
-        }
-      }
-
-      @keyframes liquid-shift {
-        0% {
-          transform: translate(-10%, -4%) scale(1.1);
-        }
-        100% {
-          transform: translate(12%, 6%) scale(1.25);
-        }
+      @font-face {
+        font-family: "San Francisco";
+        font-weight: 400;
+        src: url("./assets/fonts/sanfranciscodisplay-regular-webfont.woff")
+          format("woff");
       }
 
       #output {
@@ -67,10 +42,11 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font-style: normal;
       }
 
       body {
-        font-family: "Poppins", sans-serif;
+        font-family: "NotoColorEmojiLimited", sans-serif;
         -webkit-font-smoothing: antialiased;
         width: 100vw;
         height: 100vh;
@@ -102,17 +78,15 @@
       }
 
       .style-glass .message-wrapper {
-        backdrop-filter: blur(2px) brightness(1.1) saturate(1.3);
-        -webkit-backdrop-filter: blur(2px) brightness(1.1) saturate(1.3);
-        border-radius: 22px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        /* border-radius: 70px; */
+        border: 3px solid rgba(255, 255, 255, 0.18);
       }
 
       .style-glass .message-wrapper.show {
-        filter: blur(0);
         opacity: 1;
         transform: translateY(0px);
-        margin: 0 20%;
+        margin: 0 2%;
+        /* background: rgb(255, 255, 255, 0.7); */
       }
 
       .style-glass .message-wrapper.hide {
@@ -123,15 +97,27 @@
 
       .message {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         gap: 30px;
         position: relative;
         padding: 0;
+        z-index: 99;
+      }
+
+      .texture {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        mix-blend-mode: screen; /* TikTok-safe */
+        opacity: 0.6;
+        pointer-events: none;
       }
 
       .avatar {
-        width: 64px;
-        height: 64px;
+        width: 110px;
+        height: auto;
         border-radius: 50%;
         object-fit: cover;
         flex-shrink: 0;
@@ -198,13 +184,18 @@
       }
 
       .style-glass .username {
-        color: #fff;
+        color: #000;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        font-weight: bolder;
+        font-size: x-large;
+        margin-bottom: 1%;
       }
 
       .style-glass .text {
-        color: #f0f0f0;
+        color: #000;
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        font-size: x-large;
+        font-weight: 500;
       }
 
       .donation-info {
@@ -219,9 +210,9 @@
       }
 
       .style-glass .donation-info {
-        background: rgba(255, 215, 0, 0.2);
-        color: #ffd700;
-        border: 1px solid rgba(255, 215, 0, 0.4);
+        background: #244e1c;
+        color: #fff;
+        border: 1px solid #244e1c;
       }
 
       .badges:empty,
@@ -437,6 +428,9 @@
         hideMessage(() => {
           const wrapper = document.createElement("div");
           wrapper.className = "message-wrapper";
+          const texture = document.createElement("img");
+          texture.className = "texture";
+          texture.src = "./assets/images/bg_glassmorphism.png";
 
           const message = document.createElement("div");
           message.className = "message";
@@ -554,6 +548,7 @@
 
           message.appendChild(contentDiv);
           wrapper.appendChild(message);
+          wrapper.appendChild(texture);
 
           const output = document.getElementById("output");
           output.innerHTML = "";
