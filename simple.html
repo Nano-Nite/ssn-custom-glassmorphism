@@ -30,7 +30,17 @@
       @font-face {
         font-family: "San Francisco";
         font-weight: 400;
-        src: url("./assets/fonts/sanfranciscodisplay-regular-webfont.woff") format("woff");
+        src: url("./assets/fonts/sanfranciscodisplay-regular-webfont.woff")
+          format("woff");
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
       }
 
       #output {
@@ -52,8 +62,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        /* background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=80") center/cover no-repeat; */
-        background: transparent;
+        background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=80") center/cover no-repeat;
+        /* background: transparent; */
         backdrop-filter: none;
         overflow: hidden;
       }
@@ -109,6 +119,7 @@
         border-radius: 50%;
         object-fit: cover;
         flex-shrink: 0;
+        animation: spin 20s linear infinite;
       }
 
       .message-content::after {
@@ -555,10 +566,10 @@
           }
 
           // Auto-hide after showtime
-          if (messageTimeout) clearTimeout(messageTimeout);
-          messageTimeout = setTimeout(() => {
-            hideMessage();
-          }, showtime);
+          // if (messageTimeout) clearTimeout(messageTimeout);
+          // messageTimeout = setTimeout(() => {
+          //   hideMessage();
+          // }, showtime);
         });
       }
 
