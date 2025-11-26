@@ -53,9 +53,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=80")
-          center/cover no-repeat;
-        /* background: transparent; */
+        /* background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=3840&q=80")
+          center/cover no-repeat; */
+        background: transparent;
         backdrop-filter: none;
         overflow: hidden;
       }
@@ -87,8 +87,8 @@
         transform: translateY(0px);
         margin: 0 2%;
         display: flex;
-        flex-direction: row;
-        align-items: end;
+        flex-direction: column-reverse;
+        align-items: start;
         /* background: rgb(255, 255, 255, 0.7); */
       }
 
@@ -104,23 +104,35 @@
         gap: 30px;
         position: relative;
         padding: 0;
-        z-index: 99;
-        backdrop-filter: blur(2px);
+        /* z-index: 99; */
+        /* backdrop-filter: blur(2px); */
         margin: 4%;
-        background: #fff;
+        background: #1f8aff;
+        border-radius: 49px;
       }
 
       /* Tail */
       .style-glass .message-wrapper::after {
         content: "";
         position: absolute;
-        bottom: -14px;
-        left: 0;
+        bottom: 114px;
+        left: 60px;
         width: 0;
         height: 0;
-        border-top: 15px solid #ffffff;
-        border-right: 15px solid transparent;
-        filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.25));
+        border-left: 34px solid transparent;
+        border-right: 0px solid #1f8aff;
+        border-top: 58px solid #1f8aff;
+      }
+      .style-glass .message-wrapper::before {
+        content: "";
+        position: absolute;
+        bottom: 114px;
+        left: 87px;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 22px solid transparent;
+        border-top: 34px solid #1f8aff;
       }
 
       .texture {
@@ -135,11 +147,14 @@
       }
 
       .avatar {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: auto;
         border-radius: 50%;
         object-fit: cover;
         flex-shrink: 0;
+        margin-left: 50px;
+        border: 2px solid #fff;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
       }
 
       .message-content::after {
@@ -203,16 +218,24 @@
       }
 
       .style-glass .username {
-        color: #000;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         font-weight: bolder;
         font-size: x-large;
         margin-bottom: 1%;
+        border: 1px solid #fff;
+        border-radius: 60px;
+        background: #fff;
+        color: #1f8aff;
+        padding: 1%;
+        position: absolute;
+        top: -14px;
+        left: 55px;
+        z-index: 99;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 10px;
       }
 
       .style-glass .text {
-        color: #000;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        color: #fff;
+        text-shadow: 0 5px 4px rgba(0, 0, 0, 0.3);
         font-size: x-large;
         font-weight: 500;
       }
@@ -492,15 +515,15 @@
           }
 
           // Source icon
-          // if (content.type) {
-          //   const sourceIcon = document.createElement("img");
-          //   sourceIcon.className = "source-icon";
-          //   sourceIcon.src = `./assets/images/${content.type}.png`;
-          //   sourceIcon.onerror = () => {
-          //     sourceIcon.style.display = "none";
-          //   };
-          //   header.appendChild(sourceIcon);
-          // }
+          if (content.type) {
+            const sourceIcon = document.createElement("img");
+            sourceIcon.className = "source-icon";
+            sourceIcon.src = `./assets/images/${content.type}.png`;
+            sourceIcon.onerror = () => {
+              sourceIcon.style.display = "none";
+            };
+            header.appendChild(sourceIcon);
+          }
 
           // Badges
           if (content.chatbadges && Array.isArray(content.chatbadges)) {
@@ -522,7 +545,7 @@
             header.appendChild(badges);
           }
 
-          contentDiv.appendChild(header);
+          wrapper.appendChild(header);
 
           // Message text
           if (content.chatmessage) {
